@@ -41,9 +41,9 @@ class LoggingAgent(Agent):
 
     def getAction(self):
         """Step 2: store the action in a temporary variable until reward is given. """
-        assert self.lastobs != None
-        assert self.lastaction == None
-        assert self.lastreward == None
+        assert self.lastobs is not None
+        assert self.lastaction is None
+        assert self.lastreward is None
 
         # implement getAction in subclass and set self.lastaction
 
@@ -51,9 +51,9 @@ class LoggingAgent(Agent):
     def giveReward(self, r):
         """Step 3: store observation, action and reward in the history dataset. """
         # step 3: assume that state and action have been set
-        assert self.lastobs != None
-        assert self.lastaction != None
-        assert self.lastreward == None
+        assert self.lastobs is not None
+        assert self.lastaction is not None
+        assert self.lastreward is None
 
         self.lastreward = r
 
