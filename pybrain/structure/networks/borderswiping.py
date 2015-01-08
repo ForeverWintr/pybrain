@@ -21,10 +21,10 @@ class BorderSwipingNetwork(SwipingNetwork):
     def __init__(self, inmesh = None, hiddenmesh = None, outmesh = None, **args):
         if not self.symmetricdirections:
             raise NotImplementedError("BorderSwipingNetworks are currently limited so direction-symmetric weights.")
-        if inmesh != None:
+        if inmesh is not None:
             args['dims'] = inmesh.dims
         SwipingNetwork.__init__(self, **args)
-        if inmesh != None:
+        if inmesh is not None:
             self._buildBorderStructure(inmesh, hiddenmesh, outmesh)
             self.sortModules()
 
@@ -34,10 +34,10 @@ class BorderSwipingNetwork(SwipingNetwork):
 
         # build the motherconnections for the borders
         if self.simpleborders:
-            if not 'borderconn' in self.predefined:
+            if 'borderconn' not in self.predefined:
                 self.predefined['borderconn'] = MotherConnection(hiddenmesh.componentIndim, name = 'bconn')
         else:
-            if not 'bordconns' in self.predefined:
+            if 'bordconns' not in self.predefined:
                 self.predefined['bordconns'] = {}
             for dim, maxval in enumerate(self.dims):
                 if dim > 0 and self.symmetricdimensions:
@@ -55,7 +55,7 @@ class BorderSwipingNetwork(SwipingNetwork):
                         tmp[t] = MotherConnection(hiddenmesh.componentIndim, name = 'bconn'+str(dim)+str(t))
                         if self.extrapolateBorderValues:
                             p = self._extrapolateBorderAt(t, self.predefined['bordconns'][dim])
-                            if p != None:
+                            if p is not None:
                                 tmp[t].params[:] = p
                 self.predefined['bordconns'][dim] = tmp
 
