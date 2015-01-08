@@ -20,7 +20,7 @@ class BorderSwipingNetwork(SwipingNetwork):
 
     def __init__(self, inmesh=None, hiddenmesh=None, outmesh=None, **args):
         if not self.symmetricdirections:
-            raise NotImplementedError("BorderSwipingNetworks are currently limited so direction-symmetric weights.")
+            raise NotImplementedError("BorderSwipingNetworks are currently limited to direction-symmetric weights.")
         if inmesh is not None:
             args['dims'] = inmesh.dims
         SwipingNetwork.__init__(self, **args)
