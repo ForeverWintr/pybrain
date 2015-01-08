@@ -18,7 +18,7 @@ class BorderSwipingNetwork(SwipingNetwork):
     # all border weights the same?
     simpleborders = False
 
-    def __init__(self, inmesh = None, hiddenmesh = None, outmesh = None, **args):
+    def __init__(self, inmesh=None, hiddenmesh=None, outmesh=None, **args):
         if not self.symmetricdirections:
             raise NotImplementedError("BorderSwipingNetworks are currently limited so direction-symmetric weights.")
         if inmesh is not None:
@@ -30,12 +30,12 @@ class BorderSwipingNetwork(SwipingNetwork):
 
     def _buildBorderStructure(self, inmesh, hiddenmesh, outmesh):
         self._buildSwipingStructure(inmesh, hiddenmesh, outmesh)
-        self.addModule(BiasUnit(name = 'bias'))
+        self.addModule(BiasUnit(name='bias'))
 
         # build the motherconnections for the borders
         if self.simpleborders:
             if 'borderconn' not in self.predefined:
-                self.predefined['borderconn'] = MotherConnection(hiddenmesh.componentIndim, name = 'bconn')
+                self.predefined['borderconn'] = MotherConnection(hiddenmesh.componentIndim, name='bconn')
         else:
             if 'bordconns' not in self.predefined:
                 self.predefined['bordconns'] = {}
@@ -46,13 +46,13 @@ class BorderSwipingNetwork(SwipingNetwork):
                     self.predefined['bordconns'][dim] = {}
                 tmp = self.predefined['bordconns'][dim].copy()
                 if len(self.dims) == 1 and () not in tmp:
-                    tmp[()] = MotherConnection(hiddenmesh.componentIndim, name = 'bconn')
+                    tmp[()] = MotherConnection(hiddenmesh.componentIndim, name='bconn')
                 for t in iterCombinations(tupleRemoveItem(self.dims, dim)):
                     tc = self._canonicForm(t, dim)
                     if t == tc and t not in tmp:
                         # the connections from the borders are symmetrical,
                         # so we need separate ones only up to the middle
-                        tmp[t] = MotherConnection(hiddenmesh.componentIndim, name = 'bconn'+str(dim)+str(t))
+                        tmp[t] = MotherConnection(hiddenmesh.componentIndim, name='bconn'+str(dim)+str(t))
                         if self.extrapolateBorderValues:
                             p = self._extrapolateBorderAt(t, self.predefined['bordconns'][dim])
                             if p is not None:
