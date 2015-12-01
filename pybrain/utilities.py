@@ -123,11 +123,7 @@ def formatFromExtension(fname):
     _base, ext = os.path.splitext(fname)
     if not ext:
         return None
-    try:
-        format = known_extensions[ext.replace('.', '')]
-    except KeyError:
-        format = None
-    return format
+    return known_extensions.get(ext.replace('.', ''))
 
 
 class XMLBuildable(object):
